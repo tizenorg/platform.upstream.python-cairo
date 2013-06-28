@@ -7,6 +7,7 @@ Group:          Development/Libraries/Python
 # FIXME: on update, check if we still need to manually compile the byte-code in %%install
 Url:            http://www.cairographics.org/
 Source:         py2cairo-%{version}.tar.bz2
+Source1001: 	python-cairo.manifest
 BuildRequires:  cairo-devel
 BuildRequires:  fdupes
 BuildRequires:  python-devel
@@ -26,6 +27,7 @@ Headers for python-cairo
 
 %prep
 %setup -n py2cairo-%{version}
+cp %{SOURCE1001} .
 
 %build
 export CFLAGS='%{optflags}'
@@ -40,11 +42,13 @@ export CFLAGS='%{optflags}'
 %fdupes %{buildroot}/%{py_sitedir}
 
 %files
+%manifest %{name}.manifest
 %defattr(-,root,root)
 %doc COPYING COPYING-*
 %{python_sitearch}/cairo/
 
 %files devel
+%manifest %{name}.manifest
 %defattr(-,root,root)
 %{_includedir}/pycairo/
 %{_libdir}/pkgconfig/pycairo.pc
